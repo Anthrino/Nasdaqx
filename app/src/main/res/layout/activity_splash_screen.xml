@@ -1,0 +1,15 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/nasdaq3">
+<!-- The primary full-screen view. This can be replaced with whatever view
+     is needed to present your content, e.g. VideoView, SurfaceView,
+     TextureView, etc. -->
+
+    <TextView
+        android:id="@+id/init_loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:textColor="@color/colorPrimary"/>
+</FrameLayout>
