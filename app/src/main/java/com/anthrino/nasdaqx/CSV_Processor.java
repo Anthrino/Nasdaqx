@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CSV_Processor
 {
@@ -16,24 +15,46 @@ public class CSV_Processor
         this.inputStream = inputStream;
     }
 
-    public List file_search_read(String key) throws IOException {
-        List resultList = new ArrayList();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+    String file_search_read(CharSequence key) {
+        ArrayList<String> resultList = new ArrayList<>();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream)); // buffered reader for CSV file inputstream
         String csvLine;
         try {
             while ((csvLine = bufferedReader.readLine()) != null)
             {
-                if(csvLine.contains(key))
+//                String pattern = "(\\w*-?[^\"\\d])(,)(\\w*[^\"])";
+//                csvLine = csvLine.replaceAll(pattern, "$1, $3");
+//                csvLine = csvLine.replace("\"", "");
+//                csvLine = csvLine.replace(", ", " ");
+//                csvLine = "\"" + csvLine.replace(",", "\",\"") + "\"";
+                String[] csvals = csvLine.split(",");
+                // search for title and retrieve corresponding symbol
+                if (csvals[1].contains(key))
                 {
-                    String[] row = csvLine.split(",");
-                    resultList.add(row);
+                    resultList.add(csvals[0]);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
-            inputStream.close();
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return resultList;
+        //return string list of possible symbols
+        String tickers = resultList.toString();
+        tickers = tickers.replace('[', ' ');
+        tickers = tickers.replace(']', ' ');
+        tickers = tickers.replace(" ", "");
+        return tickers;
     }
+
+//    private Dictionary CSVtoDict()
+//    {
+//
+//
+//
+//    }
 }
