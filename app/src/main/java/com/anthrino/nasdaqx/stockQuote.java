@@ -1,5 +1,6 @@
 package com.anthrino.nasdaqx;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -20,7 +21,12 @@ class stockQuote implements Parcelable {
             return new stockQuote[size];
         }
     };
-    String comp_name, comp_symbol, comp_stockEx, comp_yearRange, comp_marketCap;
+    String comp_name;
+    String comp_symbol;
+    String comp_stockEx;
+    String comp_yearRange;
+    String comp_marketCap;
+    Bitmap comp_logo;
     double comp_ask, comp_bid, comp_open, comp_epsratio;
 
     public stockQuote(Parcel in) {
@@ -42,8 +48,23 @@ class stockQuote implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeStringArray(new String[]{this.comp_name, this.comp_symbol, this.comp_stockEx, this.comp_yearRange, this.comp_marketCap});
-        parcel.writeDoubleArray(new double[]{this.comp_ask, this.comp_bid, this.comp_open, this.comp_epsratio});
+        parcel.writeString(this.comp_name);
+        parcel.writeString(this.comp_symbol);
+        parcel.writeString(this.comp_stockEx);
+        parcel.writeString(this.comp_yearRange);
+        parcel.writeString(this.comp_marketCap);
+        parcel.writeDouble(this.comp_ask);
+        parcel.writeDouble(this.comp_bid);
+        parcel.writeDouble(this.comp_open);
+        parcel.writeDouble(this.comp_epsratio);
+    }
+
+    public Bitmap getComp_logo() {
+        return comp_logo;
+    }
+
+    public void setComp_logo(Bitmap comp_logo) {
+        this.comp_logo = comp_logo;
     }
 
     public String getComp_name() {

@@ -5,7 +5,7 @@
     <color name="colorPrimary">#00E5FF</color>
     <color name="colorSecondary">#009688</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#F50057</color>
+    <color name="colorAccent">#f50057</color>
     <color name="colorAccentDark">#880E4F</color>
 
     <color name="black_overlay">#66000000</color>

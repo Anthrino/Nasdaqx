@@ -77,7 +77,7 @@ public class stockFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MystockRecyclerViewAdapter(stockQuotes, mListener));
+            recyclerView.setAdapter(new MystockRecyclerViewAdapter(stockQuotes, mListener, getActivity()));
         }
         return view;
     }
@@ -87,13 +87,13 @@ public class stockFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.d("debug", "Attached frag");
-//        if (context instanceof OnListFragmentInteractionListener) {
-//            mListener = (OnListFragmentInteractionListener) context;
-//        } else {
-//            Log.d("debug", "onAttach: context.toString() must implement OnListFragmentInteractionListener");
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnListFragmentInteractionListener");
-//        }
+        if (context instanceof OnListFragmentInteractionListener) {
+            mListener = (OnListFragmentInteractionListener) context;
+        } else {
+            Log.d("debug", "onAttach: context.toString() must implement OnListFragmentInteractionListener");
+            throw new RuntimeException(context.toString()
+                    + " must implement OnListFragmentInteractionListener");
+        }
     }
 
     @Override
@@ -114,6 +114,6 @@ public class stockFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(View stockView);
+        void onListFragmentInteraction(View stockView, String symbol);
     }
 }

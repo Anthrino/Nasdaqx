@@ -1,10 +1,12 @@
 package com.anthrino.nasdaqx;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.anthrino.nasdaqx.dummy.DummyContent.DummyItem;
 import com.anthrino.nasdaqx.stockFragment.OnListFragmentInteractionListener;
@@ -18,12 +20,15 @@ import java.util.ArrayList;
  */
 public class MystockRecyclerViewAdapter extends RecyclerView.Adapter<MystockRecyclerViewAdapter.ViewHolder> {
 
+
     private final ArrayList<stockQuote> stockQuotes;
     private final OnListFragmentInteractionListener mListener;
+    private Context context;
 
-    public MystockRecyclerViewAdapter(ArrayList<stockQuote> items, OnListFragmentInteractionListener listener) {
+    public MystockRecyclerViewAdapter(ArrayList<stockQuote> items, OnListFragmentInteractionListener listener, Context context) {
         this.stockQuotes = items;
         mListener = listener;
+        this.context = context;
     }
 
     @Override
@@ -41,17 +46,22 @@ public class MystockRecyclerViewAdapter extends RecyclerView.Adapter<MystockRecy
         holder.comp_stockEx.setText("StockEx : ");
         holder.comp_stockEx.append(stockQuotes.get(position).getComp_stockEx());
         holder.comp_pricing.setText("Stock Pricing : ");
-        holder.comp_pricing.append((Double.toString(stockQuotes.get(position).getComp_ask())));
+        if (stockQuotes.get(position).getComp_ask() == 1010101)
+            holder.comp_pricing.append("N/A");
+        else
+            holder.comp_pricing.append((Double.toString(stockQuotes.get(position).getComp_ask())));
         holder.comp_epsratio.setText("Earnings per Share : ");
-        holder.comp_epsratio.append((Double.toString(stockQuotes.get(position).getComp_epsratio())));
+        if (stockQuotes.get(position).getComp_epsratio() == 1010101)
+            holder.comp_pricing.append("N/A");
+        else
+            holder.comp_epsratio.append((Double.toString(stockQuotes.get(position).getComp_epsratio())));
 
         holder.stockView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.stockView);
+                    Toast.makeText(context, "Loading Company Details", Toast.LENGTH_SHORT).show();
+                    mListener.onListFragmentInteraction(holder.stockView, holder.comp_symbol.getText().toString());
                 }
             }
         });
